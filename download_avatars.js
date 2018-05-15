@@ -2,8 +2,10 @@ var request = require('request');
 console.log('Welcome to the GitHub Avatar Downloader!');
 
 getRepoContributors("jquery", "jquery", function(err, result) {
-  console.log("Errors:", err);
-  console.log("Result:", result);
+  var callContributors = JSON.parse(result);
+  callContributors.forEach(function(contributor){
+    console.log(contributor.avatar_url);
+  })
 });
 
 function getRepoContributors(repoOwner, repoName, cb) {
@@ -13,8 +15,10 @@ function getRepoContributors(repoOwner, repoName, cb) {
       'User-Agent': 'request'
     }
   };
-
   request(options, function(err, res, body) {
     cb(err, body);
   });
 }
+
+
+
